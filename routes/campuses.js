@@ -38,14 +38,22 @@ router.get('/:id', ash(async(req, res) => {
 }));
 
 /* DELETE CAMPUS */
-router.delete('/:id', ash(async(req, res) => {
-  await Campus.destroy({
-    where: {
-      id: req.params.id
+router.delete('/api/campuses/:id', async (req, res) => {
+  try {
+    const campusId = req.params.id;
+    const campus = await Campus.findByPk(campusId);
+    
+    if (!campus) {
+      return res.status(404).json({ message: 'Campus not found' });
     }
-  });
-  res.status(200).json("Deleted a campus!");
-}));
+
+    await campus.destroy();  // Delete the campus from the database
+    res.status(200).json({ message: 'Campus deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to delete campus' });
+  }
+});
 
 /* ADD NEW CAMPUS */
 router.post('/', ash(async(req, res) => {
