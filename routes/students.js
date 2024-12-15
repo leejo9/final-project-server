@@ -72,9 +72,8 @@ router.put('/:id', ash(async(req, res) => {
   await Student.update(req.body,
         { where: {id: req.params.id} }
   );
-  // Find student by Primary Key
   let student = await Student.findByPk(req.params.id);
-  res.status(201).json(student);  // Status code 201 Created - successful creation of a resource
+  res.status(201).json(student);
 }));
 
 // Export router, so that it can be imported to construct the apiRouter (app.js)
