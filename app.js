@@ -43,12 +43,16 @@ const apiRouter = require('./routes/index');
 /* CONFIGURE EXPRESS APPLICATION */
 // Create a function to configure the Express application
 const configureApp = async () => {
+  
   // Middleware to handle request data and response
   app.use(express.json());  // Set up Express to parse JSON requests and generate JSON responses
   app.use(express.urlencoded({ extended: false }));  // Express to parse requests encoded in URL format and querystring
 
+
+
+  
   // Set up the Express application's main top-level route and attach all sub-routes to it
-  // Add main top-level URL path "/api" before sub-routes
+  // Add main top-level URL `path` "/api" before sub-routes
   app.use("/api", apiRouter);  // Updated (complete) URL paths for API: "/api/students/", "/api/students/:id", "/api/campuses/", and "/api/campuses/:id"
 
   // Handle routing error: Page Not Found
@@ -65,6 +69,7 @@ const configureApp = async () => {
     console.log(req.originalUrl);
     res.status(err.status || 500).send(err.message || "Internal server error.");  // Status code 500 Internal Server Error - server error
   });
+
 };
 
 /* SET UP BOOT FOR SERVER APPLICATION */

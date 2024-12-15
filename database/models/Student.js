@@ -15,8 +15,31 @@ const Student = db.define("student", {
   lastname: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue: 'https://example.com/profile.jpg',
+    allowNull: true
+  },
+  gpa: {
+    type: Sequelize.DECIMAL(3, 2),
+    allowNull: true,
+    validate: {
+      min: 0.0,
+      max: 4.0
+    }
   }
-});
+
+},{
+  timestamps: true,  // Automatically adds createdAt and updatedAt fields
+  paranoid: true
+}
+);
 
 // Export the student model
 module.exports = Student;
