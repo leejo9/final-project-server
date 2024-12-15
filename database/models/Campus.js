@@ -20,7 +20,17 @@ const Campus = db.define("campus", {
 
   description: {
     type: Sequelize.STRING,
+    allowNull: true
+  },
+  imageUrl: {
+    type: Sequelize.STRING,
+    defaultValue: 'https://default.com/profile.jpg',
+    allowNull: true
   }
+
+},{
+  timestamps: true,  // Automatically adds createdAt and updatedAt fields
+  paranoid: true
 });
 
 // Export the campus model
